@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		queue<int> que;
+		int n;cin>>n;
+		while(n--){
+			int choice; cin>>choice;
+			if(choice ==1 ) cout<<que.size()<<endl;
+			if(choice ==2){
+				if(que.size()==0) cout<<"YES"<<endl;
+				else cout<<"NO"<<endl;
+			}
+			if(choice ==3){
+				int x;cin>>x;
+				que.push(x);
+			}
+			if(choice ==4){
+				if(!que.empty()) que.pop();
+			}
+			if(choice==5){
+				if(!que.empty()) cout<<que.front()<<endl;
+				else cout<<-1<<endl;
+			}
+			if(choice ==6){
+				if(!que.empty()) cout<<que.back()<<endl;
+				else cout<<-1<<endl;
+			}
+		}
+	}
+}
