@@ -1,0 +1,112 @@
+Cho ma trận vuông Ci,j cấp N (1£ i, j £ N£10) gồm N2 số tự nhiên và số tự nhiên K (các số trong ma trận không nhất thiết phải khác nhau và đều không quá 100, K không quá 104). Hãy viết chương trình lấy mỗi hàng, mỗi cột duy nhất một phần tử sao cho tổng các phần tử này đúng bằng K.
+
+Dữ liệu vào: Dòng 1 ghi hai số N và K. N dòng tiếp theo ghi ma trận C. 
+
+Kết quả: dòng đầu ghi số cách tìm được. Mỗi dòng tiếp theo ghi một cách theo vị trí của số đó trong lần lượt từng hàng của ma trận. Xem ví dụ để hiểu rõ hơn. 
+
+
+INPUT
+
+3 10
+
+2 4 3
+
+1 3 6
+
+4 2 4
+
+OUTPUT
+
+2
+
+1 3 2
+
+3 2 1
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int k,n,ok=0;
+int a[100];
+int b[100][100];
+void swap(int &a,int &b){
+	int temp=a;
+	a=b;
+	b=temp;
+}
+
+void init(){
+	for(int i=1;i<=k;i++){
+		a[i]=i;
+	}
+}
+
+void result(){
+	for(int i=1;i<=k;i++){
+		cout<<a[i]<<" ";
+	}
+	cout<<endl;
+}
+
+void sinh(){
+	int i=k-1;
+	int x=k;
+	while(i>0 && a[i] >=a[i+1]) i--;
+	if(i<=0) ok=1;
+	else{
+		while(a[x]< a[i]) x--;
+		if(a[x] > a[i]) swap(a[x],a[i]);
+		int left=i+1,right=k;
+		while(left<right){
+			swap(a[left],a[right]);
+			left++;right--;
+		}			
+	}	
+}
+
+int check(){
+	int tong=0;
+	for(int i=1;i<=k;i++){
+		int x=a[i];
+		tong=tong+b[i][x];	
+	}
+	if(tong==n)	return 1;
+	else return 0;
+}
+
+
+void run(){
+	ok=0;
+	int dem=0;
+	while(ok==0){
+		if(check()){
+			result();
+		}
+		sinh();
+	}
+}
+
+int run1(){
+	ok=0;
+	int dem=0;
+	while(!ok){
+		if(check()==1){
+			dem++;
+		}
+		sinh();
+	}
+	return dem;
+}
+int main(){
+	cin>>k>>n;
+	for(int i=1;i<=k;i++){
+		for(int j=1;j<=k;j++){
+			cin>>b[i][j];
+		}
+	}
+	init();
+	cout<<run1()<<endl;
+	init();
+	run();
+}
