@@ -1,0 +1,51 @@
+Cho một bàn cờ vua có kích thước n * n, ta biết ràng quân hậu có thể di chuyển theo chiều ngang, dọc, chéo. Vấn đề đặt ra rằng, có n quân hậu, bạn cần đếm số cách đặt n quân hậu này lên bàn cờ sao cho với 2 quân hậu bất kì, chúng không “ăn” nhau.
+
+Input: Dòng đầu ghi số bộ test T (T<5). Mỗi bộ test ghi một số nguyên dương n duy nhất (không quá 10)
+
+Output:  Ghi kết quả mỗi bộ test trên một dòng. Số cách đặt quân hậu.
+
+Ví dụ:
+
+Input
+
+1
+
+4
+
+
+Output
+2
+
+#include <iostream>
+using namespace std;
+int n, dem;
+int x;
+bool cot[50], hang[50];
+bool xuoi[50], nguoc[50];
+
+void Try(int i){
+	for(int j=1; j<=n;j++){
+		if(!cot[j] && !hang[j] && !xuoi[i-j+n] && !nguoc[i+j-1]){
+			hang[j]=true;
+			cot[j] = true;
+			xuoi[i-j+n] = true;
+			nguoc[i+j-1] = true;
+			if(i==n){
+				dem++;
+			}else Try(i+1);
+			hang[j] = false;
+			cot[j] = false;
+			xuoi[i-j+n] = false;
+			nguoc [i+j-1]= false;
+		}
+	}
+}
+int main(){
+	cin>>x;
+	while(x--){
+		cin>>n;
+		dem=0;
+		Try(1);
+		cout<<dem<<endl;
+	}
+}
