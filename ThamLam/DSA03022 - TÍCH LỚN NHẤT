@@ -1,0 +1,44 @@
+Cho dãy số A gồm N phần tử là các số nguyên. Hãy tính tích lớn nhất của 2 hoặc 3 phần tử trong dãy.
+
+Input
+
+Dòng đầu tiên ghi số N (3 ≤ N ≤ 10000)
+
+Dòng thứ 2 ghi N số của dãy A (|Ai| ≤ 1000)
+
+Outpput
+
+Ghi ra kết quả trên một dòng
+
+Input
+6
+
+5 10 -2 3 5 2
+
+Output
+250
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+		int n;
+		cin>>n;
+		int a[n];
+		for(int i=0;i<n;i++){
+			cin>>a[i];
+		}
+		sort(a,a+n);
+		int max=0;
+		int num=a[n-1]*a[n-2]*a[n-3];
+		if(max<num) max=num;
+		int num1=a[0]*a[1];
+		if(max<num1) max=num1;
+		int num2=a[n-1]*a[n-2];
+		if(max<num2) max=num2;
+		int num3=a[n-1]*a[0]*a[1];
+		if(max<num3) max=num3;
+		
+		cout<<max<<endl;
+}
