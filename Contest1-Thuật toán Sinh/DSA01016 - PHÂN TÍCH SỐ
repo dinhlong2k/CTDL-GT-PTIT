@@ -1,0 +1,87 @@
+Cho số nguyên dương N. Nhiệm vụ của bạn là hãy liệt kê tất cả các cách phân tích số tự nhiên N thành tổng các số tự nhiên nhỏ hơn hoặc bằng N. Phép hoán vị vủa một cách được xem là giống nhau. Ví dụ với N = 5 ta có kết quả là: (5), (4, 1), (3, 2), (3, 1, 1), (2, 2, 1), (2, 1, 1, 1), (1, 1, 1, 1, 1) .
+
+Input:
+
+Dòng đầu tiên đưa vào số lượng test T.
+Những dòng kế tiếp đưa vào các bộ test. Mỗi bộ test là một số tự nhiên N được viết trên một dòng.
+T, n thỏa mãn ràng buộc: 1≤T, N≤10.
+Output:
+
+Đưa ra kết quả mỗi test theo từng dòng.
+
+
+Input
+
+2
+
+4
+
+5
+
+Output
+(4) (3 1) (2 2) (2 1 1) (1 1 1 1)
+
+(5) (4 1)  (3 2)  (3 1 1) (2 2 1)  (2 1 1 1)  (1 1 1 1 1)
+
+
+#include<iostream>
+#define MAX 100
+using namespace std;
+int n, a[MAX], k,x;
+bool stop;
+void Init(){
+	k = 1;
+	a[k] = n;
+}
+
+void xuat(){
+	for(int i=1;i<=k;i++){
+		if(i==1){
+			cout<<"(";
+		}
+		cout<<a[i];
+		if(i<k){
+			cout<<" ";
+		} else{
+			cout<<") ";
+		}
+	}
+}
+void sinh(){
+	int i=k;
+	while (i>0 && a[i]==1)
+		i--;
+	if (i>0){
+		a[i] = a[i]-1;
+		int D=k-i+1;
+		int R=D/a[i];
+		int S=D%a[i];
+		k=i;
+		if (R>0){
+			for (int j=i+1;j<=i+R;j++)
+				a[j]=a[i];
+			k=k+R;
+		}
+		if (S>0){
+			k=k+1;a[k]=S;
+		}
+	}
+	else stop = true;
+}
+
+void run(){
+	stop = false;
+	while (!stop){
+	xuat();
+	sinh();
+	}
+}
+int  main(){
+	cin>>x;
+	while(x--){
+		cin>>n;
+ 		Init();
+ 		run();
+ 		cout<<endl;
+	}
+}
