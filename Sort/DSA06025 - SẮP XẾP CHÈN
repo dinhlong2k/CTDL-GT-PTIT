@@ -1,0 +1,62 @@
+Hãy thực hiện thuật toán sắp xếp chèn trên dãy N số nguyên. Ghi ra các bước thực hiện thuật toán.
+
+Dữ liệu vào: Dòng 1 ghi số N (không quá 100). Dòng 2 ghi N số nguyên dương (không quá 100).
+
+Kết quả: Ghi ra màn hình từng bước thực hiện thuật toán. Mỗi bước trên một dòng, các số trong dãy cách nhau đúng một khoảng trống.
+
+Input
+
+4
+
+5 7 3 2
+
+Output
+
+Buoc 0: 5
+
+Buoc 1: 5 7
+
+Buoc 2: 3 5 7
+
+Buoc 3: 2 3 5 7
+
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int a[101];
+int b[101];
+void SapXep(int a[],int n){
+	int i,j,key;
+	for(i=1;i<n;i++)
+	{
+		key=a[i];
+		j=i-1;
+		while(j>=0 && a[j] >key){
+			a[j+1]=a[j];
+			j=j-1;
+		}
+		a[j+1]=key;
+	}
+}
+
+int main(){
+	int n;
+	cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	int j=0,x=0;
+	while(j<n){
+		b[j]=a[j];	
+		SapXep(b,j+1);
+		cout<<"Buoc "<<x<<": ";	
+		x++;
+		for(int i=0;i<=j;i++){
+			cout<<b[i]<<" ";
+		}cout<<endl;
+		j++;
+	}
+}
