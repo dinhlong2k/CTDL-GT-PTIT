@@ -1,0 +1,93 @@
+Khi chat chit vui vẻ, anh em chiến hữu thường hay gõ HAHA để thể hiện sự sảng khoái. Đôi khi cũng có thể gõ HAHAAAAA chẳng hạn cho thêm phần nhấn mạnh.
+
+Giả sử một xâu ký tự được coi là HAHA nếu thỏa mãn các điều kiện:
+
+Ký tự đầu tiên phải là chữ H, ký tự cuối cùng phải là chữ A
+Không có hai chữ H nào liền nhau
+Cho trước độ dài N, hãy liệt kê tất cả các xâu ký tự HAHA theo thứ tự từ điển.
+
+Input
+
+Dòng đầu ghi số bộ test T (không quá 10)
+Mỗi bộ test ghi độ dài N (2 <= N < 16)
+Output
+
+Với mỗi bộ test, ghi ra tất cả các xâu HAHA tìm được theo thứ tự từ điển, mỗi xâu viết trên một dòng.
+
+
+Input
+
+2
+
+2
+
+4
+
+
+Output
+
+HA
+
+HAAA
+
+HAHA
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int n,k,a[105],b[105],stop=0;
+
+void khoitao(){
+	for(int i=0;i<n;i++){
+		a[i]=0;
+	}
+}
+
+void sinh(){
+	int i=n-1;
+	while(i>=0 && a[i]==1){
+		a[i]=0;
+		i--;
+	}
+	if(i==-1) stop=1;
+	else a[i]=1;
+}
+
+string xuatstring(){
+	string res="";
+	if(a[0]==1 && a[1]==0 && a[n-1]!=1){
+		for(int i=0;i<n;i++){
+			if(a[i]==1 && a[i+1]!=1) res+='1';
+			else if(a[i]==0) res+='0';
+			else break;
+		}
+	}
+	return res;
+}
+
+void xuat(){
+	for(int i=0;i<n;i++){
+		if(a[i]==1) cout<<"H";
+		else cout<<"A";
+	}
+	cout<<endl;
+}
+
+void solve(){
+	stop=0;
+	while(stop==0){
+		string res=xuatstring();
+		if(res.length()==n) xuat();
+		sinh();
+	}
+}
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		cin>>n;
+		solve();
+	}
+}
