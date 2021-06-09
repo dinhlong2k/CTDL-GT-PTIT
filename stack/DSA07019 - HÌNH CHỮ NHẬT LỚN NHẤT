@@ -1,0 +1,75 @@
+Cho N cột, mỗi cột có chiều cao bằng H[i]. Bạn hãy tìm hình chữ nhật lớn nhất bị che phủ bởi các cột?
+
+
+
+Input:
+
+Dòng đầu tiên là số lượng bộ test T (T ≤ 20).
+
+Mỗi test bắt đầu bởi số nguyên N (N ≤ 100 000).
+
+Dòng tiếp theo gồm N số nguyên H[i] (1 ≤ H[i] ≤ 109).
+
+Output: 
+
+Với mỗi test, in ra diện tích hình chữ nhật lớn nhất tìm được.
+
+
+Input
+
+2
+
+7
+
+6 2 5 4 5 1 6
+
+3
+
+2 2 2
+
+Output
+12
+
+6
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+long tinh(long long a[],int n){
+	stack<long long> st;
+	long i=0, max_area=0, topst=0, area=0;
+		
+	while(i<n){
+		if(st.empty() || a[i]>=a[st.top()])  {
+			st.push(i++);
+		}
+		else{
+			topst=st.top(); st.pop();
+			area=a[topst] * (st.empty() ? i :i- st.top() -1);
+			if(area > max_area) max_area=area;
+		} 
+	}
+	while(!st.empty()){
+		topst=st.top(); st.pop();
+		area=a[topst] * (st.empty() ? i :i- st.top() -1);
+		if(area > max_area) max_area=area;
+	}
+	return max_area;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+		long long a[n];
+		for(int i=0;i<n;i++){
+			cin>>a[i];
+		}
+		cout<<tinh(a,n)<<endl;
+	}
+}
+
+
