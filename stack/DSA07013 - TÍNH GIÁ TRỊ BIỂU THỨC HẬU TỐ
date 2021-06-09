@@ -1,0 +1,67 @@
+Hãy viết chương trình chuyển tính toán giá trị của biểu thức hậu tố.
+
+Input:
+
+Dòng đầu tiên đưa vào số lượng bộ test T;
+Những dòng tiếp theo mỗi dòng đưa vào một bộ test. Mỗi bộ test là một biểu thức hậu tố exp. Các số xuất hiện trong biểu thức là các số đơn có 1 chữ số.
+Output:
+
+Đưa ra kết quả mỗi test theo từng dòng, chỉ lấy giá trị phần nguyên.
+Ràng buộc:
+
+T, exp thỏa mãn ràng buộc: 1≤T≤100; 2≤length(exp)≤20.
+
+
+Input
+
+2
+
+231*+9–
+
+875*+9-
+
+Output
+-4
+
+34
+
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int checkDau(char s){
+	if(s=='+' || s=='-' || s=='*' || s=='/' ||s=='%') return 1;
+	else return 0;
+}
+
+int tinh(int s1,char s2, int s3){
+	if(s2=='+') return s1+s3;
+	else if(s2=='-') return s1-s3;
+	else if(s2=='*') return s1*s3;
+	else if(s2=='/') return s1/s3;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		string s;
+		getline(cin>>ws,s);
+		stack<int> st;
+		int temp=0;
+		for(int i=0;i<s.length();i++){
+			if(checkDau(s[i])){
+				int s1=st.top(); st.pop();
+				int s2=st.top(); st.pop();
+				temp=tinh(s2,s[i],s1);
+				st.push(temp);
+			}else{
+				int temp1=(int)s[i]-'0';
+				st.push(temp1);
+			}
+		}
+		cout<<st.top()<<endl;
+	}
+}
